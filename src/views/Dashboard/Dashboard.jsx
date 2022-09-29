@@ -5,7 +5,7 @@ export default function Dashboard({navigation}) {
   return (
     <View style={styles.container}>
       <Text>Dashboard screen</Text>
-      <Button title='Navigate' onPress={() => navigation.navigate('Signin')}></Button>
+      <Button title='Navigate' onPress={() => navigation.navigate('Teste')}></Button>
     </View>
   )
 }
