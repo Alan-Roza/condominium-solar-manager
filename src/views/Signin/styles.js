@@ -5,48 +5,51 @@ const {height,width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    backgroundColor: '#FFF',
   },
   button:{
-    backgroundColor: '#04bf9dc6',
-    height: 55,
+    backgroundColor: '#FFF',
+    height: 45,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 35,
+    borderRadius: 10,
     marginHorizontal: 20,
     marginVertical: 10,
     borderWidth: 1,
     borderColor: '#F8F4E5'
   },
   buttonText:{
-    fontSize: 20,
-    fontWeight: '600',
-    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
     letterSpacing: 0.5,
+    color: '#FFF',
   },
   bottomContainer:{
     justifyContent: 'center',
-    height: height/3
+    height: height/1.5,
+    // backgroundColor: 'white'
   },
   TextInput:{
-    height: 50,
+    height: 45,
     borderWidth: 1,
-    borderColor: '#a6a79f8f',
+    backgroundColor: '#EA5C2B25',
+    borderColor: 'transparent',
     marginHorizontal:20,
     marginVertical: 10,
-    borderRadius: 25,
+    borderRadius: 10,
     paddingLeft: 10,
   },
   formButton:{
-    backgroundColor: '#234A33',
-    height: 55,
+    backgroundColor: '#EA5C2B',
+    height: 45,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 35,
+    borderRadius: 10,
     marginHorizontal: 20,
     marginVertical: 10,
     borderWidth: 1,
-    borderColor: '#03A696',
+    borderColor: '#EA5C2B',
     shadowColor:"#000",
     shadowOffset:{
       width: 0,
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
     width: 40,
     justifyContent: 'center',
     alignSelf: 'center',
-     shadowColor:"#000",
+    shadowColor:"#000",
     shadowOffset:{
       width: 0,
       height: 5,
@@ -84,7 +87,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    top: -200,
   },
 });
 

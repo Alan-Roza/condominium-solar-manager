@@ -19,7 +19,6 @@ import Signup from '../views/Signup/Signup';
 import About from '../views/About/About';
 import ManagerSyndic from '../views/Manager/ManagerSyndic';
 import DashboardDetails from '../views/Dashboard/DashboardDetails';
-import Teste from '../views/Teste/Teste';
 
 export default function Navigation() {
   return (
@@ -38,7 +37,6 @@ function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName='Signin'>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="Teste" component={Teste} options={{ headerShown: false }} />
       <Stack.Screen name="Signin" component={Signin} options={{ headerShown: false }} />
       <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
       <Stack.Screen name="ManagerSyndic" component={ManagerSyndic} options={{ title: 'in progress' }} />
