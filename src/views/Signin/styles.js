@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: '#FFF',
+    backgroundColor: '#FFF0',
   },
   button:{
     backgroundColor: '#FFF',
@@ -25,10 +25,18 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     color: '#FFF',
   },
+  screenButtonText:{
+    fontSize: 16,
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
+    color: '#EA5C2B',
+  },
   bottomContainer:{
     justifyContent: 'center',
     height: height/1.5,
-    // backgroundColor: 'white'
+    borderTopLeftRadius: 30, 
+    borderTopRightRadius: 30,
+    backgroundColor: '#FFF'
   },
   TextInput:{
     height: 45,
@@ -60,8 +68,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   formInputContainer:{
-    marginBottom: 70,
-    ...StyleSheet.absoluteFill,
+    // ...StyleSheet.absoluteFill,
     zIndex: -1,
     justifyContent: 'center',
   },
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     borderRadius: 25,
-    top: -55,
+    marginTop: 30
   },
   logostyle:{
     alignItems: 'center',
