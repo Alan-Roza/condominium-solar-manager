@@ -31,8 +31,8 @@ export default function Signin({ navigation }) {
 
   const onSubmit = async (data) => {
     try {
-      console.log('successfully Logged!')
-      navigation.push("home");
+      console.log('successfully Logged!', data)
+      navigation.navigate("Root");
     } catch (error) {
       console.log(error);
       setErrorMessage(error.toString());
@@ -87,19 +87,19 @@ export default function Signin({ navigation }) {
             placeholder="Digite o usuário"
             placeholderTextColor="#EA5C2B"
           />
-          <ErrorMessage
-            errors={errors}
-            name="user"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
         </View>
+        <ErrorMessage
+          errors={errors}
+          name="user"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <Text key={type} style={styles.errorMessage}>
+                {message}
+              </Text>
+            ))
+          }
+        />
 
         <Text style={[styles.label]}>Senha</Text>
         <View style={styles.inputContainer}>
@@ -115,19 +115,19 @@ export default function Signin({ navigation }) {
             placeholder="Digite a senha"
             placeholderTextColor="#EA5C2B"
           />
-          <ErrorMessage
-            errors={errors}
-            name="password"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
         </View>
+        <ErrorMessage
+          errors={errors}
+          name="password"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <Text key={type} style={styles.errorMessage}>
+                {message}
+              </Text>
+            ))
+          }
+        />
 
         <TouchableRipple
           borderless

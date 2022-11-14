@@ -39,10 +39,11 @@ export const styles = StyleSheet.create({
     marginBottom: -5,
   },
   errorMessage: {
-    marginTop: -7,
-    marginLeft: 15,
-    fontWeight: "600",
-    fontSize: 14,
+    marginTop: -10,
+    marginBottom: 15,
+    marginHorizontal: 20,
+    fontWeight: "500",
+    fontSize: 13,
     color: "red",
   },
   logo: {

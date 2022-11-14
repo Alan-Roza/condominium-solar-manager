@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { StyleSheet, Text, View, TextInput, ScrollView, Image } from "react-native";
+import React, { useEffect } from "react";
+import { Text, View, TextInput, ScrollView, Image } from "react-native";
 import { useForm } from "react-hook-form";
 import api from "../../services/api";
 import {
@@ -38,8 +38,8 @@ export default function Signup({ navigation }) {
 
   const onSubmit = async (data) => {
     try {
-      console.log('successfully Logged!')
-      navigation.push("home");
+      console.log('successfully Logged!', data)
+      navigation.navigate("Signin");
     } catch (error) {
       console.log(error);
       setErrorMessage(error.toString());
