@@ -13,10 +13,11 @@ import Person from '../../../assets/icons/Person'
 import Password from '../../../assets/icons/Password'
 import Engine from '../../../assets/icons/Engine'
 import Key from '../../../assets/icons/Key'
-import RNPickerSelect from 'react-native-picker-select';
+import { Picker } from "@react-native-picker/picker";
 
 export default function Signup({ navigation }) {
   const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
+  const [levelSelect, setLevelSelect] = React.useState('manager');
   const [errorMessage, setErrorMessage] = React.useState("Ocorreu um erro!");
   const {
     register,
@@ -93,19 +94,19 @@ export default function Signup({ navigation }) {
             placeholder="Digite um usuário"
             placeholderTextColor="#EA5C2B"
           />
-          <ErrorMessage
-            errors={errors}
-            name="user"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
         </View>
+        <ErrorMessage
+          errors={errors}
+          name="user"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <Text key={type} style={styles.errorMessage}>
+                {message}
+              </Text>
+            ))
+          }
+        />
 
         <Text style={[styles.label]}>Senha</Text>
         <View style={styles.inputContainer}>
@@ -121,19 +122,19 @@ export default function Signup({ navigation }) {
             placeholder="Digite a senha"
             placeholderTextColor="#EA5C2B"
           />
-          <ErrorMessage
-            errors={errors}
-            name="password"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
         </View>
+        <ErrorMessage
+          errors={errors}
+          name="password"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <Text key={type} style={styles.errorMessage}>
+                {message}
+              </Text>
+            ))
+          }
+        />
 
         <Text style={[styles.label]}>Confirmar Senha</Text>
         <View style={styles.inputContainer}>
@@ -149,52 +150,45 @@ export default function Signup({ navigation }) {
             placeholder="Digite a mesma senha"
             placeholderTextColor="#EA5C2B"
           />
-          <ErrorMessage
-            errors={errors}
-            name="confirmPassword"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
         </View>
+        <ErrorMessage
+          errors={errors}
+          name="confirmPassword"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <Text key={type} style={styles.errorMessage}>
+                {message}
+              </Text>
+            ))
+          }
+        />
 
-        {/* <Text style={[styles.label]}>Nível</Text>
+        <Text style={[styles.label]}>Nível</Text>
         <View style={styles.inputContainer}>
           <Engine style={styles.prefix} />
-          <RNPickerSelect
-          onValueChange={(value) => console.log(value)}
-          items={[
-            { label: 'Football', value: 'football' },
-            { label: 'Baseball', value: 'baseball' },
-            { label: 'Hockey', value: 'hockey' },
-          ]}
-        />
-          <ErrorMessage
-            errors={errors}
-            name="confirmPassword"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
-        </View> */}
-
-        <RNPickerSelect
-          onValueChange={(value) => console.log(value)}
-          items={[
-            { label: 'Football', value: 'football' },
-            { label: 'Baseball', value: 'baseball' },
-            { label: 'Hockey', value: 'hockey' },
-          ]}
+          <Picker
+            style={styles.selectPicker}
+            selectedValue={levelSelect}
+            onValueChange={(value) => setLevelSelect(value)}
+            dropdownIconColor="#EA5C2B"
+            dropdownIconRippleColor="#EA5C2B15"
+          >
+            <Picker.Item label="Síndico" value="manager" />
+            <Picker.Item label="Administrador" value="administrator" />
+          </Picker>
+        </View>
+        <ErrorMessage
+          errors={errors}
+          name="level"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <Text key={type} style={styles.errorMessage}>
+                {message}
+              </Text>
+            ))
+          }
         />
 
         <Text style={[styles.label]}>Código</Text>
@@ -208,22 +202,22 @@ export default function Signup({ navigation }) {
             style={styles.input}
             secureTextEntry
             onChangeText={(text) => setValue("code", text)}
-            placeholder="Código para cadastro ADM"
+            placeholder="Código para cadastro"
             placeholderTextColor="#EA5C2B"
           />
-          <ErrorMessage
-            errors={errors}
-            name="code"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
         </View>
+        <ErrorMessage
+          errors={errors}
+          name="code"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <Text key={type} style={styles.errorMessage}>
+                {message}
+              </Text>
+            ))
+          }
+        />
 
         <TouchableRipple
           borderless
@@ -238,9 +232,9 @@ export default function Signup({ navigation }) {
 
         <View style={styles.register}>
           <Text style={styles.registerText}>Já possui cadastro? </Text>
-          <Text style={styles.registerLink} nPress={() => navigation.navigate('Signin')}>Entrar</Text>
+          <Text style={styles.registerLink} onPress={() => navigation.navigate('Signin')}>Entrar</Text>
         </View>
       </ScrollView>
-    </View>
+    </View >
   );
 }

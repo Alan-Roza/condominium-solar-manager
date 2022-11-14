@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     color: '#EA5C2B',
+    fontSize: 16,
   },
   button: {
     backgroundColor: "#EA5C2B",
@@ -39,10 +40,11 @@ export const styles = StyleSheet.create({
     marginBottom: -5,
   },
   errorMessage: {
-    marginTop: -7,
-    marginLeft: 15,
-    fontWeight: "600",
-    fontSize: 14,
+    marginTop: -10,
+    marginBottom: 15,
+    marginHorizontal: 20,
+    fontWeight: "500",
+    fontSize: 13,
     color: "red",
   },
   logo: {
@@ -92,6 +94,11 @@ export const styles = StyleSheet.create({
   registerText: {
     color: '#818181',
   },
+  selectPicker: {
+    flex: 1,
+    color: '#EA5C2B',
+    marginLeft: -10,
+  },
   register: {
     justifyContent: 'center',
     flexDirection: 'row',
@@ -100,5 +107,6 @@ export const styles = StyleSheet.create({
   registerLink: {
     color: '#EA5C2B',
     fontWeight: 'bold',
+    marginBottom: 20,
   },
 });

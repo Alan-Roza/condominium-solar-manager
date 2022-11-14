@@ -100,5 +100,6 @@ export const styles = StyleSheet.create({
   registerLink: {
     color: '#EA5C2B',
     fontWeight: 'bold',
+    marginBottom: 20,
   },
 });
