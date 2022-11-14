@@ -1,9 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Router from './src/routes';
-import { Asset } from 'expo-asset'
-import { AppLoading } from 'expo'
-import { useState } from 'react';
 
 // function cacheImages(images) {
 //   return images.map(images => {
@@ -36,7 +33,7 @@ export default function App() {
       ) : ( */}
         <SafeAreaProvider>
           <Router />
-          <StatusBar style='dark' backgroundColor='transparent' translucent hidden={false} />
+          <StatusBar style='light' backgroundColor='transparent' translucent hidden={false} />
         </SafeAreaProvider>
       {/* )} */}
     </>

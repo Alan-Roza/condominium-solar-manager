@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { FontAwesome } from '@expo/vector-icons';
 import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { Pressable, View, Text, Image, StyleSheet, TouchableHighlight, Button } from 'react-native';
