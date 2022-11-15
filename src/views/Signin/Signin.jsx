@@ -11,6 +11,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { styles } from './style'
 import Person from '../../../assets/icons/Person'
 import Password from '../../../assets/icons/Password'
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Signin({ navigation }) {
   const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
@@ -41,7 +42,10 @@ export default function Signin({ navigation }) {
   };
 
   return (
-    <View style={styles.generalContainer}>
+    <LinearGradient
+      colors={['#E3501D', '#EA5C2B88']}
+      style={styles.generalContainer}
+    >
       <Snackbar
         style={{ zIndex: 100 }}
         visible={visibleSnackbar}
@@ -145,6 +149,6 @@ export default function Signin({ navigation }) {
           <Text style={styles.registerLink} onPress={() => navigation.navigate('Signup')}>Cadastrar</Text>
         </View>
       </ScrollView>
-    </View>
+    </LinearGradient>
   );
 }

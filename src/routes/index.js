@@ -83,6 +83,7 @@ function BottomTabNavigator() {
           height: 55,
           paddingTop: 5,
           paddingBottom: 5,
+          marginHorizontal: -40,
           backgroundColor: '#EA5C2B',
           borderTopColor: 'transparent',
         },

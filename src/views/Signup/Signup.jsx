@@ -14,6 +14,7 @@ import Password from '../../../assets/icons/Password'
 import Engine from '../../../assets/icons/Engine'
 import Key from '../../../assets/icons/Key'
 import { Picker } from "@react-native-picker/picker";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Signup({ navigation }) {
   const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
@@ -48,7 +49,10 @@ export default function Signup({ navigation }) {
   };
 
   return (
-    <View style={styles.generalContainer}>
+    <LinearGradient
+      colors={['#E3501D', '#EA5C2B88']}
+      style={styles.generalContainer}
+    >
       <Snackbar
         style={{ zIndex: 100 }}
         visible={visibleSnackbar}
@@ -235,6 +239,6 @@ export default function Signup({ navigation }) {
           <Text style={styles.registerLink} onPress={() => navigation.navigate('Signin')}>Entrar</Text>
         </View>
       </ScrollView>
-    </View >
+    </LinearGradient>
   );
 }

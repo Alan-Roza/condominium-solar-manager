@@ -17,7 +17,6 @@ export const styles = StyleSheet.create({
   },
   input: {
     color: '#EA5C2B',
-    fontSize: 16,
   },
   button: {
     backgroundColor: "#EA5C2B",
@@ -34,7 +33,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   label: {
-    marginHorizontal: 20  ,
+    marginHorizontal: 20,
     fontWeight: "500",
     fontSize: 16,
     marginBottom: -5,
@@ -53,28 +52,18 @@ export const styles = StyleSheet.create({
   },
   header: {
     paddingTop: 50,
-  },
-  headerText: {
     alignItems: 'center',
     marginTop: 20,
     marginBottom: 35,
   },
-  generalContainer: {
-    flex: 1,
-    backgroundColor: '#FFF'
-  },
-  welcomeText: {
+  headerText: {
     color: '#FFF',
     fontSize: 15,
     fontWeight: '500',
   },
-  subtitleText: {
-    color: '#FFF',
-    fontSize: 25,
-    fontWeight: '500',
-    lineHeight: 30,
-    textAlign: 'center',
-    width: '80%',
+  generalContainer: {
+    flex: 1,
+    backgroundColor: '#E3501D'
   },
   inputContainer: {
     flexDirection: 'row',
@@ -93,11 +82,6 @@ export const styles = StyleSheet.create({
   },
   registerText: {
     color: '#818181',
-  },
-  selectPicker: {
-    flex: 1,
-    color: '#EA5C2B',
-    marginLeft: -10,
   },
   register: {
     justifyContent: 'center',

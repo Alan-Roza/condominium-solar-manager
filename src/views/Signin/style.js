@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     color: '#EA5C2B',
+    fontSize: 16,
   },
   button: {
     backgroundColor: "#EA5C2B",
@@ -60,7 +61,7 @@ export const styles = StyleSheet.create({
   },
   generalContainer: {
     flex: 1,
-    backgroundColor: '#E3501D'
+    backgroundColor: '#FFF'
   },
   welcomeText: {
     color: '#FFF',
