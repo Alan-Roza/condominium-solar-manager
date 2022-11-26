@@ -1,144 +1,62 @@
-import React, { useContext, useEffect } from "react";
-import { StyleSheet, Text, View, TextInput, ScrollView, Image } from "react-native";
-import { useForm } from "react-hook-form";
-import api from "../../services/api";
-import {
-  Text as TextPaper,
-  TouchableRipple,
-  Snackbar,
-} from "react-native-paper";
-import { ErrorMessage } from "@hookform/error-message";
+import React from "react";
+import { ScrollView, Text, View } from "react-native";
 import { styles } from './style'
-import Person from '../../../assets/icons/Person'
-import Password from '../../../assets/icons/Password'
+
+const STUDENT_WORKERS = [
+  {
+    name: 'Alan Cruz Roza',
+    number: '200904'
+  },
+  {
+    name: 'Ana Julia da Silva Moraes',
+    number: '200716'
+  },
+  {
+    name: 'Larissa Marques Molina ',
+    number: '200681'
+  },
+  {
+    name: 'Matheus Henrique Santos Zacarias',
+    number: '200064'
+  },
+  {
+    name: 'Nathan Roberto Gonçalves dos Santos',
+    number: '200065'
+  },
+  {
+    name: 'Vinicius Ferreira Gomes',
+    number: '200603'
+  },
+  {
+    name: 'Yuri Carlos Achnitz Batista Belinski',
+    number: '200262'
+  },
+]
 
 export default function About({ navigation }) {
-  const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState("Ocorreu um erro!");
-  const {
-    register,
-    setValue,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    criteriaMode: "all",
-  });
-
-  useEffect(() => {
-    register("user");
-    register("name");
-  }, [register]);
-
-  const onSubmit = async (data) => {
-    try {
-      console.log('successfully Logged!', data)
-      navigation.navigate("Root");
-    } catch (error) {
-      console.log(error);
-      setErrorMessage(error.toString());
-      setVisibleSnackbar(true);
-    }
-  };
-
   return (
-    <View style={styles.generalContainer}>
-      <Snackbar
-        style={{ zIndex: 100 }}
-        visible={visibleSnackbar}
-        duration={2000}
-        onDismiss={() => setVisibleSnackbar((prev) => !prev)}
-        action={{
-          label: "Fechar",
-        }}
-      >
-        {errorMessage}
-      </Snackbar>
+    <ScrollView style={styles.container}>
 
       <View style={styles.header}>
-        <Text style={styles.headerText}>
-          DETALHES DO PERFIL
-        </Text>
+        <Text style={styles.headerAbout}>Informações do projeto</Text>
+        <Text style={styles.headerTitle}>Sobre o LOREM</Text>
       </View>
 
-      <ScrollView
-        style={[styles.container]}
-        showsVerticalScrollIndicator={false}
-      >
-        <Text style={[styles.title]}>
-          Sign In
-        </Text>
+      <View style={styles.about}>
+        <Text style={styles.aboutTitle}>Sobre o aplicativo</Text>
+        <Text style={styles.aboutText}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, aut alias nemo porro ea excepturi officia accusantium odio, in suscipit vitae facere distinctio ipsa. Repudiandae consequuntur vel non earum. Doloribus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, aut alias nemo porro ea excepturi officia accusantium odio, in suscipit vitae facere distinctio ipsa. Repudiandae consequuntur vel non earum. Doloribus!</Text>
+      </View>
 
-        <Text style={[styles.label]}>Usuário</Text>
-        <View style={styles.inputContainer}>
-          <Person style={styles.prefix} />
-          <TextInput
-            defaultValue=''
-            {...register("user", {
-              required: "Informe o usuário!",
-            })}
-            style={styles.input}
-            onChangeText={(text) => setValue("user", text)}
-            placeholder="Digite o usuário"
-            placeholderTextColor="#EA5C2B"
-          />
-        </View>
-        <ErrorMessage
-          errors={errors}
-          name="user"
-          render={({ messages }) =>
-            messages &&
-            Object.entries(messages).map(([type, message]) => (
-              <Text key={type} style={styles.errorMessage}>
-                {message}
-              </Text>
-            ))
-          }
-        />
+      <View style={styles.workers}>
+        <Text style={styles.workersTitle}>Colaboradores</Text>
+        {STUDENT_WORKERS.map((worker) => (
+          <View style={styles.workersTable} key={worker.number}>
+            <Text style={styles.workersName}>{worker.name}</Text>
+            <Text style={styles.workersNumber}>{worker.number}</Text>
+          </View>
+        ))}
+      </View>
 
-        <Text style={[styles.label]}>Senha</Text>
-        <View style={styles.inputContainer}>
-          <Password style={styles.prefix} />
-          <TextInput
-            defaultValue=''
-            {...register("password", {
-              required: "É necessário informar a senha!",
-            })}
-            style={styles.input}
-            secureTextEntry
-            onChangeText={(text) => setValue("password", text)}
-            placeholder="Digite a senha"
-            placeholderTextColor="#EA5C2B"
-          />
-        </View>
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ messages }) =>
-            messages &&
-            Object.entries(messages).map(([type, message]) => (
-              <Text key={type} style={styles.errorMessage}>
-                {message}
-              </Text>
-            ))
-          }
-        />
-
-        <TouchableRipple
-          borderless
-          rippleColor="rgba(0, 0, 0, .2)"
-          style={styles.button}
-          onPress={handleSubmit(onSubmit)}
-        >
-          <TextPaper style={styles.buttonText}>
-            Acessar
-          </TextPaper>
-        </TouchableRipple>
-
-        <View style={styles.register}>
-          <Text style={styles.registerText}>Ainda não é cadastrado? </Text>
-          <Text style={styles.registerLink} onPress={() => navigation.navigate('Signup')}>Cadastrar</Text>
-        </View>
-      </ScrollView>
-    </View>
+    </ScrollView>
   );
 }

@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
   header: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: windowHeight / 3.5,
+    height: windowHeight / 8,
     marginTop: 50,
   },
   headerText: {

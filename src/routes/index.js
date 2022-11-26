@@ -34,7 +34,7 @@ const Stack = createNativeStackNavigator();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator initialRouteName='Signin'>
+    <Stack.Navigator initialRouteName='Signin' screenOptions={{headerStyle: {backgroundColor: '#EA5C2B'}}}>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="Signin" component={Signin} options={{ headerShown: false }} />
       <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />

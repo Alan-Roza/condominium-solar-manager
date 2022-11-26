@@ -4,93 +4,63 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
-  },
-  title: {
-    fontWeight: "800",
-    fontSize: 26,
-    marginHorizontal: 20,
-    textAlign: "left",
-    marginVertical: 30,
-    color: "#545454",
-  },
-  input: {
-    color: '#EA5C2B',
-  },
-  button: {
-    backgroundColor: "#EA5C2B",
-    marginHorizontal: 20,
-    marginVertical: 30,
-    borderRadius: 10,
-    height: 50,
-    justifyContent: "center",
-  },
-  buttonText: {
-    color: "#FFF",
-    textAlign: "center",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  label: {
-    marginHorizontal: 20,
-    fontWeight: "500",
-    fontSize: 16,
-    marginBottom: -5,
-  },
-  errorMessage: {
-    marginTop: -10,
-    marginBottom: 15,
-    marginHorizontal: 20,
-    fontWeight: "500",
-    fontSize: 13,
-    color: "red",
-  },
-  logo: {
-    height: 100,
-    width: '100%',
+    paddingHorizontal: 20,
   },
   header: {
-    paddingTop: 50,
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 35,
+    marginVertical: 30,
   },
-  headerText: {
-    color: '#FFF',
-    fontSize: 15,
-    fontWeight: '500',
+  headerAbout: {
+    color: "#EA5C2B",
+    fontSize: 17,
+    fontWeight: '700'
   },
-  generalContainer: {
-    flex: 1,
-    backgroundColor: '#E3501D'
+  headerTitle: {
+    color: '#545454',
+    fontSize: 25,
+    lineHeight: 27,
+    fontWeight: '600',
   },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#EA5C2B15',
-    marginHorizontal: 20,
-    marginVertical: 10,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    height: 50,
+  about: {
+    marginVertical: 0,
   },
-  prefix: {
-    paddingHorizontal: 20,
-    fontWeight: 'bold',
-    color: 'black'
+  aboutTitle: {
+    color: "#EA5C2B",
+    fontSize: 22,
+    marginBottom: 5,
+    fontWeight: '700'
   },
-  registerText: {
-    color: '#818181',
+  aboutText: {
+    color: '#545454',
+    fontSize: 14,
+    textAlign: 'justify',
+    fontWeight: '300',
   },
-  register: {
-    justifyContent: 'center',
-    flexDirection: 'row',
+  workers: {
     marginVertical: 20,
   },
-  registerLink: {
-    color: '#EA5C2B',
-    fontWeight: 'bold',
-    marginBottom: 20,
+  workersTitle: {
+    color: "#EA5C2B",
+    fontSize: 22,
+    marginBottom: 10,
+    fontWeight: '700'
+  },
+  workersTable: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#54545422",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+  },
+  workersName: {
+    color: '#545454',
+    fontSize: 17,
+    fontWeight: '500',
+    flex:1,
+  },
+  workersNumber: {
+    color: '#545454',
+    fontSize: 17,
+    fontWeight: '300',
+    alignSelf: 'flex-end',
   },
 });

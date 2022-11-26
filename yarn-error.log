@@ -1,0 +1,66 @@
+Arguments: 
+  /home/alan/.nvm/versions/node/v16.9.1/bin/node /usr/local/bin/yarn
+
+PATH: 
+  /home/alan/.nvm/versions/node/v16.9.1/bin:/home/alan/google-cloud-sdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  16.9.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: 139879631833024:error:1408F119:SSL routines:ssl3_get_record:decryption failed or bad record mac:../deps/openssl/openssl/ssl/record/ssl3_record.c:677:
+
+npm manifest: 
+  {
+    "name": "condominium-manager",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web"
+    },
+    "dependencies": {
+      "@expo/webpack-config": "^0.16.19",
+      "@hookform/error-message": "^2.0.1",
+      "@react-native-picker/picker": "^1.16.0",
+      "@react-navigation/bottom-tabs": "^6.4.0",
+      "@react-navigation/native": "^6.0.13",
+      "@react-navigation/native-stack": "^6.9.0",
+      "axios": "^0.27.2",
+      "expo": "~46.0.9",
+      "expo-constants": "^13.2.4",
+      "expo-font": "~10.2.0",
+      "expo-linear-gradient": "~11.4.0",
+      "expo-status-bar": "~1.4.0",
+      "react": "18.0.0",
+      "react-dom": "18.0.0",
+      "react-hook-form": "^7.39.1",
+      "react-native": "0.69.5",
+      "react-native-gesture-handler": "~2.5.0",
+      "react-native-paper": "5.0.0-rc.6",
+      "react-native-reanimated": "^2.12.0",
+      "react-native-safe-area-context": "4.3.1",
+      "react-native-screens": "~3.15.0",
+      "react-native-svg": "12.3.0",
+      "react-native-svg-transformer": "^1.0.0",
+      "react-native-web": "~0.18.7"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.12.9"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
