@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://api.twitter.com/1.1/',
+  baseURL: 'https://upx6-backend.herokuapp.com',
   timeout: 30000
 })
 

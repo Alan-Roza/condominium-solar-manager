@@ -139,6 +139,7 @@ export const styles = StyleSheet.create({
   userName: {
     fontSize: 22,
     fontWeight: '700',
+    textTransform: 'capitalize',
   },
   verifyContainer: {
     flexDirection: 'row',

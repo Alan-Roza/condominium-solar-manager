@@ -12,12 +12,14 @@ import Dashboard from '../views/Dashboard/Dashboard';
 import Profile from '../views/Profile/Profile';
 import ProfileIcon  from '../../assets/icons/Profile';
 import ManagerIcon  from '../../assets/icons/Manager';
+import InfoIcon  from '../../assets/icons/Info';
 import DashboardIcon  from '../../assets/icons/Dashboard';
 import Manager from '../views/Manager/Manager';
 import Signup from '../views/Signup/Signup';
 import About from '../views/About/About';
-import ManagerSyndic from '../views/Manager/ManagerSyndic';
 import DashboardDetails from '../views/Dashboard/DashboardDetails';
+import ManagerSettings from '../views/Manager/ManagerSettings';
+import userContext from '../config/userContext';
 
 export default function Navigation() {
   return (
@@ -38,7 +40,7 @@ function RootNavigator() {
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="Signin" component={Signin} options={{ headerShown: false }} />
       <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
-      <Stack.Screen name="ManagerSyndic" component={ManagerSyndic} options={{ title: 'in progress' }} />
+      <Stack.Screen name="ManagerSettings" component={ManagerSettings} options={{ title: 'in progress' }} />
       <Stack.Screen name="DashboardDetails" component={DashboardDetails} options={{ title: 'in progress' }} />
       <Stack.Screen name="About" component={About} options={{ title: 'Sobre o Aplicativo' }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
@@ -73,6 +75,8 @@ const CustomTabBarButton = ({ children, onPress }) => (
 )
 
 function BottomTabNavigator() {
+  const {userInfos} = React.useContext(userContext);
+
   return (
     <BottomTab.Navigator
       initialRouteName="Dashboard"
@@ -111,14 +115,25 @@ function BottomTabNavigator() {
           )
         })}
       />
-      <BottomTab.Screen
-        name="Manager"
-        component={Manager}
-        options={{
-          title: 'Gerenciar',
-          tabBarIcon: ({ color }) => <ManagerIcon color={color} />,
-        }}
-      />
+      {userInfos.principals?.includes('ADMIN') ? (
+        <BottomTab.Screen
+          name="Manager"
+          component={Manager}
+          options={{
+            title: 'Gerenciar',
+            tabBarIcon: ({ color }) => <ManagerIcon color={color} />,
+          }}
+        />
+      ) : (
+        <BottomTab.Screen
+          name="About"
+          component={About}
+          options={{
+            title: 'Sobre',
+            tabBarIcon: ({ color }) => <InfoIcon color={color} />,
+          }}
+        />
+      )}
     </BottomTab.Navigator>
   );
 }

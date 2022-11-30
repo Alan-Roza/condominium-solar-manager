@@ -13,12 +13,13 @@ import Person from '../../../assets/icons/Person'
 import Password from '../../../assets/icons/Password'
 import Engine from '../../../assets/icons/Engine'
 import Key from '../../../assets/icons/Key'
+import RegisterCard from '../../../assets/icons/RegisterCard'
 import { Picker } from "@react-native-picker/picker";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function Signup({ navigation }) {
   const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
-  const [levelSelect, setLevelSelect] = React.useState('manager');
+  const [levelSelect, setLevelSelect] = React.useState('SINDICO');
   const [errorMessage, setErrorMessage] = React.useState("Ocorreu um erro!");
   const {
     register,
@@ -30,17 +31,34 @@ export default function Signup({ navigation }) {
   });
 
   useEffect(() => {
-    register("user");
+    register("name");
+    register("email");
     register("password");
     register("confirmPassword");
-    register("level");
-    register("code");
+    register("principals");
+    register("createCode");
   }, [register]);
 
   const onSubmit = async (data) => {
     try {
-      console.log('successfully Logged!', data)
-      navigation.navigate("Signin");
+      // console.log('successfully Logged!', data)
+      if (data.password !== data.confirmPassword) throw new Error('As senhas devem ser iguais!')
+
+      if (levelSelect === 'ADMIN' && data.createCode !== 'ADMIN-COD') throw new Error('Código inválido para Administrador!')
+      if (levelSelect === 'SINDICO' && data.createCode !== 'SINDICO-COD') throw new Error('Código inválido para Síndico!')
+
+      const formattedData = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        principals: levelSelect,
+        createCode: data.createCode,
+        avatarUrl: "https://paraty.com.br/wp-content/uploads/2022/05/zeca-pagodinho-em-paraty.jpg",
+      }
+
+      const response = await api.post('/user/create', formattedData)
+
+      if (response) navigation.navigate("Signin");
     } catch (error) {
       console.log(error);
       setErrorMessage(error.toString());
@@ -90,18 +108,45 @@ export default function Signup({ navigation }) {
           <Person style={styles.prefix} />
           <TextInput
             defaultValue=''
-            {...register("user", {
-              required: "Informe um usuário!",
+            {...register("name", {
+              required: "Informe seu nome!",
             })}
             style={styles.input}
-            onChangeText={(text) => setValue("user", text)}
-            placeholder="Digite um usuário"
+            onChangeText={(text) => setValue("name", text)}
+            placeholder="Digite seu nome"
             placeholderTextColor="#EA5C2B"
           />
         </View>
         <ErrorMessage
           errors={errors}
-          name="user"
+          name="name"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <Text key={type} style={styles.errorMessage}>
+                {message}
+              </Text>
+            ))
+          }
+        />
+
+        <Text style={[styles.label]}>E-mail</Text>
+        <View style={styles.inputContainer}>
+          <RegisterCard style={[styles.prefix]} />
+          <TextInput
+            defaultValue=''
+            {...register("email", {
+              required: "Informe seu e-mail!",
+            })}
+            style={styles.input}
+            onChangeText={(text) => setValue("email", text)}
+            placeholder="Digite seu e-mail"
+            placeholderTextColor="#EA5C2B"
+          />
+        </View>
+        <ErrorMessage
+          errors={errors}
+          name="email"
           render={({ messages }) =>
             messages &&
             Object.entries(messages).map(([type, message]) => (
@@ -174,17 +219,17 @@ export default function Signup({ navigation }) {
           <Picker
             style={styles.selectPicker}
             selectedValue={levelSelect}
-            onValueChange={(value) => setLevelSelect(value)}
+            onValueChange={(value) => {setLevelSelect(value);setValue("principals", value)}}
             dropdownIconColor="#EA5C2B"
             dropdownIconRippleColor="#EA5C2B15"
           >
-            <Picker.Item label="Síndico" value="manager" />
-            <Picker.Item label="Administrador" value="administrator" />
+            <Picker.Item label="Síndico" value="SINDICO" />
+            <Picker.Item label="Administrador" value="ADMIN" />
           </Picker>
         </View>
         <ErrorMessage
           errors={errors}
-          name="level"
+          name="principals"
           render={({ messages }) =>
             messages &&
             Object.entries(messages).map(([type, message]) => (
@@ -200,19 +245,19 @@ export default function Signup({ navigation }) {
           <Key style={styles.prefix} />
           <TextInput
             defaultValue=''
-            {...register("code", {
+            {...register("createCode", {
               required: "É necessário informar o código!",
             })}
             style={styles.input}
             secureTextEntry
-            onChangeText={(text) => setValue("code", text)}
+            onChangeText={(text) => setValue("createCode", text)}
             placeholder="Código para cadastro"
             placeholderTextColor="#EA5C2B"
           />
         </View>
         <ErrorMessage
           errors={errors}
-          name="code"
+          name="createCode"
           render={({ messages }) =>
             messages &&
             Object.entries(messages).map(([type, message]) => (

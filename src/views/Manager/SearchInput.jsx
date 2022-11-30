@@ -2,8 +2,6 @@ import React from "react";
 import { SafeAreaView, StyleSheet, TextInput, View } from "react-native";
 import CloseIcon from "../../../assets/icons/CloseIcon";
 import SearchIcon from "../../../assets/icons/SearchIcon";
-import Colors from "../../constants/Colors";
-import Layout from "../../constants/Layout";
 import useDebounce from "../../hooks/useDebounce";
 
 const SearchInput = (props) => {
@@ -24,14 +22,14 @@ const SearchInput = (props) => {
           onChangeText={(value) => setSearch(value)}
           value={search}
           placeholder={placeholder ?? 'Pesquisar...'}
-          placeholderTextColor={Colors.placeholderColor}
+          placeholderTextColor={'#545454'}
         />
         {search ? (
           <View style={styles.closeIconContainer}>
-            <CloseIcon onPress={() => setSearch('')} color={Colors.placeholderColor} />
+            <CloseIcon onPress={() => setSearch('')} color={'#EA5C2B'} />
           </View>
         ): null}
-        <SearchIcon style={styles.searchIcon} color={Colors.placeholderColor} />
+        <SearchIcon style={styles.searchIcon} color={'#EA5C2B'} />
       </View>
     </SafeAreaView>
   );
@@ -41,10 +39,11 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     margin: 12,
-    borderRadius: Layout.borderRadius,
-    color: Colors.placeholderColor,
+    borderRadius: 50,
+    color: '#545454',
     fontWeight: '500',
-    backgroundColor: Colors.searchBackground,
+    backgroundColor: '#FFFFFFDD',
+    elevation: 10,
     paddingLeft: 45,
     paddingRight: 35,
     fontSize: 16,
@@ -56,6 +55,7 @@ const styles = StyleSheet.create({
   searchIcon: {
     position: 'absolute', 
     alignSelf: 'center', 
+    zIndex: 100,
     left: 0, 
     transform: [{ translateX: 25 }]
   },

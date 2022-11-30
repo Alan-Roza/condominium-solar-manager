@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { StyleSheet, Text, View, TextInput, ScrollView, Image, Pressable } from "react-native";
+import { StyleSheet, Text, View, TextInput, ScrollView, Image, Pressable, FlatList } from "react-native";
 import { useForm } from "react-hook-form";
-import api from "../../services/api";
 import {
   Text as TextPaper,
   TouchableRipple,
@@ -15,9 +14,14 @@ import RegisterCard from '../../../assets/icons/RegisterCard'
 import Leave from '../../../assets/icons/Leave'
 import Info from '../../../assets/icons/Info'
 import { LinearGradient } from "expo-linear-gradient";
+import SearchInput from "./SearchInput";
+import ManagerCard from "./ManagerCard";
+import api from "../../services/api";
 
 export default function Manager({ navigation }) {
   const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
+  const [condiminiunsData, setCondominiunsData] = React.useState([]);
+  const [condiminiunsSearchData, setCondominiunsSearchData] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState("Ocorreu um erro!");
   const {
     register,
@@ -29,9 +33,19 @@ export default function Manager({ navigation }) {
   });
 
   useEffect(() => {
-    register("user");
-    register("name");
-  }, [register]);
+    const getCondominiuns = async () => {
+      try {
+        const response = await api.get('/condominio/list?sindicoId=*')
+
+        if (response?.data) setCondominiunsData(response?.data?.data)
+        console.log(response?.data?.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    getCondominiuns()
+  }, [])
 
   const onSubmit = async (data) => {
     try {
@@ -44,16 +58,25 @@ export default function Manager({ navigation }) {
     }
   };
 
+  const onSearch = (search) => {
+    setCondominiunsSearchData(condiminiunsData.filter((item) => (item?.name?.toLowerCase()).startsWith(search?.toLowerCase())))
+  }
+
+  useEffect(() => {
+    onSearch('')
+  }, [])
+
   return (
     <LinearGradient
       colors={['#E3501D', '#EA5C2B88']}
       style={styles.generalContainer}
     >
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <View showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <Snackbar
-          style={{ zIndex: 100 }}
+          style={{ zIndex: 1000 }}
           visible={visibleSnackbar}
           duration={2000}
+          marginBottom={50}
           onDismiss={() => setVisibleSnackbar((prev) => !prev)}
           action={{
             label: "Fechar",
@@ -71,85 +94,21 @@ export default function Manager({ navigation }) {
           </Text>
         </View>
 
-        <View style={[styles.userCard, styles.shadowProp]}>
-          
+        <View style={styles.search}>
+          <SearchInput onSearch={(search) => onSearch(search)} />
         </View>
 
         <View style={[styles.container]}>
-          <Text style={[styles.label]}>Usuário</Text>
-          <View style={styles.inputContainer}>
-            <Person style={styles.prefix} />
-            <TextInput
-              defaultValue=''
-              {...register("user", {
-                required: "Informe o usuário!",
-              })}
-              style={styles.input}
-              onChangeText={(text) => setValue("user", text)}
-              placeholder="Digite o usuário"
-              placeholderTextColor="#EA5C2B"
-            />
-          </View>
-          <ErrorMessage
-            errors={errors}
-            name="user"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
+          <FlatList
+            style={{ paddingTop: 50 }}
+            contentContainerStyle={{ paddingBottom: 50 }}
+            data={condiminiunsSearchData}
+            renderItem={({ item }) => (
+              <ManagerCard condominium={item} onHandlePress={() => navigation.navigate('ManagerSettings')} />
+            )}
           />
-
-          <Text style={[styles.label]}>Nome</Text>
-          <View style={styles.inputContainer}>
-            <RegisterCard style={styles.prefix} />
-            <TextInput
-              defaultValue=''
-              {...register("name", {
-                required: "É necessário informar um nome!",
-              })}
-              style={styles.input}
-              secureTextEntry
-              onChangeText={(text) => setValue("name", text)}
-              placeholder="Digite seu nome"
-              placeholderTextColor="#EA5C2B"
-            />
-          </View>
-          <ErrorMessage
-            errors={errors}
-            name="name"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
-
-          <TouchableRipple
-            borderless
-            rippleColor="rgba(0, 0, 0, .2)"
-            style={styles.button}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <View style={styles.leaveButton}>
-              <Leave />
-              <TextPaper style={styles.buttonText}>
-                Sair
-              </TextPaper>
-            </View>
-          </TouchableRipple>
-
-          <View style={styles.remove}>
-            <Text style={styles.removeLink} onPress={() => navigation.navigate('Signup')}>Excluir usuário?</Text>
-          </View>
         </View>
-      </ScrollView>
+      </View>
     </LinearGradient>
   );
 }

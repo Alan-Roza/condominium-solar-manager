@@ -15,6 +15,7 @@ import RegisterCard from '../../../assets/icons/RegisterCard'
 import Leave from '../../../assets/icons/Leave'
 import Info from '../../../assets/icons/Info'
 import { LinearGradient } from "expo-linear-gradient";
+import userContext from "../../config/userContext";
 
 export default function Profile({ navigation }) {
   const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
@@ -27,16 +28,19 @@ export default function Profile({ navigation }) {
   } = useForm({
     criteriaMode: "all",
   });
+  const userInfos = useContext(userContext);
 
   useEffect(() => {
     register("user");
     register("name");
   }, [register]);
 
-  const onSubmit = async (data) => {
+  const deleteMyUser = async () => {
     try {
-      console.log('successfully Logged!', data)
-      navigation.navigate("Root");
+      console.log('deleted with success!')
+      await api.get(`/user/delete?id=${userInfos?.userInfos?.id}`)
+      userInfos.setUserInfos({})
+      navigation.navigate('Signin', {snackVisible: true, message: 'Usuário excluído com sucesso!'})
     } catch (error) {
       console.log(error);
       setErrorMessage(error.toString());
@@ -79,8 +83,8 @@ export default function Profile({ navigation }) {
           <Image style={styles.avatar} source={{ uri: 'https://wl-incrivel.cf.tsp.li/resize/728x/jpg/0ec/140/d189845022bb6eddb88bb5279a.jpg' }} />
           <View style={styles.textContainer}>
             <View style={{ justifyContent: 'center', flex: 1 }}>
-              <Text style={styles.userName}>Joyce Katgrio</Text>
-              <Text style={styles.level}>Administrador</Text>
+              <Text style={styles.userName}>{userInfos?.userInfos?.name}</Text>
+              <Text style={styles.level}>{userInfos?.userInfos?.principals === 'SINDICO' ? 'Síndico' : 'Administrador'}</Text>
             </View>
             <View style={styles.verifyContainer}>
               <Verify />
@@ -94,62 +98,34 @@ export default function Profile({ navigation }) {
           <View style={styles.inputContainer}>
             <Person style={styles.prefix} />
             <TextInput
-              defaultValue=''
-              {...register("user", {
+              editable={false}
+              defaultValue={userInfos?.userInfos?.name}
+              {...register("name", {
                 required: "Informe o usuário!",
               })}
               style={styles.input}
-              onChangeText={(text) => setValue("user", text)}
-              placeholder="Digite o usuário"
+              placeholder="Seu nome"
               placeholderTextColor="#EA5C2B"
             />
           </View>
-          <ErrorMessage
-            errors={errors}
-            name="user"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
 
-          <Text style={[styles.label]}>Nome</Text>
+          <Text style={[styles.label]}>E-mail</Text>
           <View style={styles.inputContainer}>
             <RegisterCard style={styles.prefix} />
             <TextInput
-              defaultValue=''
-              {...register("name", {
-                required: "É necessário informar um nome!",
-              })}
+              editable={false}
+              defaultValue={userInfos?.userInfos?.email}
               style={styles.input}
-              secureTextEntry
-              onChangeText={(text) => setValue("name", text)}
-              placeholder="Digite seu nome"
+              placeholder="Seu e-mail"
               placeholderTextColor="#EA5C2B"
             />
           </View>
-          <ErrorMessage
-            errors={errors}
-            name="name"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text key={type} style={styles.errorMessage}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
 
           <TouchableRipple
             borderless
             rippleColor="rgba(0, 0, 0, .2)"
             style={styles.button}
-            onPress={handleSubmit(onSubmit)}
+            onPress={() => {navigation.navigate('Signin'); userInfos.setUserInfos({})}}
           >
             <View style={styles.leaveButton}>
               <Leave />
@@ -160,7 +136,7 @@ export default function Profile({ navigation }) {
           </TouchableRipple>
 
           <View style={styles.remove}>
-            <Text style={styles.removeLink} onPress={() => navigation.navigate('Signup')}>Excluir usuário?</Text>
+            <Text style={styles.removeLink} onPress={() => deleteMyUser()}>Excluir usuário?</Text>
           </View>
         </View>
       </ScrollView>

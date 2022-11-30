@@ -9,12 +9,14 @@ import {
 } from "react-native-paper";
 import { ErrorMessage } from "@hookform/error-message";
 import { styles } from './style'
-import Person from '../../../assets/icons/Person'
+import RegisterCard from '../../../assets/icons/RegisterCard'
 import Password from '../../../assets/icons/Password'
 import { LinearGradient } from "expo-linear-gradient";
+import userContext from "../../config/userContext";
 
-export default function Signin({ navigation }) {
+export default function Signin({ route, navigation }) {
   const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
+  const [users, setUsers] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState("Ocorreu um erro!");
   const {
     register,
@@ -24,15 +26,44 @@ export default function Signin({ navigation }) {
   } = useForm({
     criteriaMode: "all",
   });
+  const userInfos = useContext(userContext);
 
   useEffect(() => {
-    register("user");
+    register("email");
     register("password");
   }, [register]);
+
+  useEffect(() => {
+    if(route.params?.snackVisible) {
+      setVisibleSnackbar(true)
+      setErrorMessage(route.params?.message)
+    }
+  }, [route.params]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const response = await api.get('/user/list')
+
+        if (response?.data) setUsers(response?.data?.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    getUsers()
+  }, [])
 
   const onSubmit = async (data) => {
     try {
       console.log('successfully Logged!', data)
+
+      const userLogin = users.find((user) => user?.email?.toLowerCase() === data?.email?.toLowerCase())
+      
+      if (!userLogin) throw new Error('Usuário não encontrado!')
+      if (userLogin.password !== data.password) throw new Error('Senha inválida!')
+
+      userInfos.setUserInfos(userLogin)
       navigation.navigate("Root");
     } catch (error) {
       console.log(error);
@@ -80,21 +111,21 @@ export default function Signin({ navigation }) {
 
         <Text style={[styles.label]}>Usuário</Text>
         <View style={styles.inputContainer}>
-          <Person style={styles.prefix} />
+          <RegisterCard style={styles.prefix} />
           <TextInput
             defaultValue=''
-            {...register("user", {
-              required: "Informe o usuário!",
+            {...register("email", {
+              required: "Informe o e-mail!",
             })}
             style={styles.input}
-            onChangeText={(text) => setValue("user", text)}
-            placeholder="Digite o usuário"
+            onChangeText={(text) => setValue("email", text)}
+            placeholder="Digite o e-mail"
             placeholderTextColor="#EA5C2B"
           />
         </View>
         <ErrorMessage
           errors={errors}
-          name="user"
+          name="email"
           render={({ messages }) =>
             messages &&
             Object.entries(messages).map(([type, message]) => (

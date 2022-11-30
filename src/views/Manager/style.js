@@ -3,10 +3,13 @@ import { Dimensions, StyleSheet } from 'react-native'
 const windowHeight = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
-  container: {
+  containerManager: {
     flex: 1,
     backgroundColor: '#FFF',
-    paddingTop: 100,
+    paddingTop: 30,
+  },
+  container: {
+    backgroundColor: '#FFF',
   },
   title: {
     fontWeight: "800",
@@ -64,6 +67,11 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     color: "red",
   },
+  closeIcon: {
+    marginHorizontal: 20,
+    marginTop: 15,
+    alignItems: 'flex-end',
+  },
   logo: {
     height: 100,
     width: '100%',
@@ -73,6 +81,16 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     height: windowHeight / 8,
     marginTop: 50,
+  },
+  search: {
+    marginBottom: -40,
+    zIndex: 100,
+  },
+  headerTextManager: {
+    color: '#EA5C2B',
+    fontSize: 33,
+    lineHeight: 35,
+    fontWeight: '700',
   },
   headerText: {
     color: '#FFF',
