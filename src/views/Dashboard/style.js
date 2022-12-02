@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   headerContainer: {
     alignItems: 'center',
-    marginVertical: 20,
+    marginTop: 20,
   },
   headerText: {
     color: "#EA5C2B",
@@ -47,6 +47,7 @@ export const styles = StyleSheet.create({
   filterText: {
     color: '#545454',
     fontSize: 17,
+    marginTop: 15,
     fontWeight: '600',
   },
   pressableButton: {
@@ -54,5 +55,34 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  workers: {
+    marginVertical: 20,
+    width: '100%',
+  },
+  workersTitle: {
+    color: "#EA5C2B",
+    fontSize: 22,
+    marginBottom: 10,
+    fontWeight: '700'
+  },
+  workersTable: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#54545422",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+  },
+  workersName: {
+    color: '#545454',
+    fontSize: 17,
+    fontWeight: '500',
+    flex:1,
+  },
+  workersNumber: {
+    color: '#545454',
+    fontSize: 17,
+    fontWeight: '300',
+    alignSelf: 'flex-end',
   },
 });

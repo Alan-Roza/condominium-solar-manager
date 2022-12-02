@@ -30,14 +30,17 @@ export default function CardDetails({ title, subTitle, data, onHandlePress }) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 200,
+    height: 180,
     shadowColor: '#171717',
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
-    elevation: 10,
+    elevation: 7,
+    marginBottom: 25,
     backgroundColor: 'white',
-    borderRadius: 8,
+    borderRadius: 10,
     paddingTop: 5,
+    borderWidth: 2,
+    borderColor: 'rgba(234, 92, 43, 1)',
   },
   title: {
     paddingHorizontal: 15,

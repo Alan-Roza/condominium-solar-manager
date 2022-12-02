@@ -40,8 +40,8 @@ function RootNavigator() {
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="Signin" component={Signin} options={{ headerShown: false }} />
       <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
-      <Stack.Screen name="ManagerSettings" component={ManagerSettings} options={{ title: 'in progress' }} />
-      <Stack.Screen name="DashboardDetails" component={DashboardDetails} options={{ title: 'in progress' }} />
+      <Stack.Screen name="ManagerSettings" component={ManagerSettings} options={({ route }) => ({ title: route.params?.manager?.name })} />
+      <Stack.Screen name="DashboardDetails" component={DashboardDetails} options={({ route }) => ({ title: 'Detalhes do Condomínio' })} />
       <Stack.Screen name="About" component={About} options={{ title: 'Sobre o Aplicativo' }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>

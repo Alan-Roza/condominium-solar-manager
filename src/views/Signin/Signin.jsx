@@ -44,12 +44,14 @@ export default function Signin({ route, navigation }) {
     const getUsers = async () => {
       try {
         const response = await api.get('/user/list')
+        console.log(response, 'resp')
 
         if (response?.data) setUsers(response?.data?.data)
       } catch (error) {
         console.log(error)
       }
     }
+    console.log('arrive')
 
     getUsers()
   }, [])
@@ -64,7 +66,7 @@ export default function Signin({ route, navigation }) {
       if (userLogin.password !== data.password) throw new Error('Senha inválida!')
 
       userInfos.setUserInfos(userLogin)
-      navigation.navigate("Root");
+      navigation.push("Root");
     } catch (error) {
       console.log(error);
       setErrorMessage(error.toString());

@@ -58,7 +58,7 @@ export default function Signup({ navigation }) {
 
       const response = await api.post('/user/create', formattedData)
 
-      if (response) navigation.navigate("Signin");
+      if (response) navigation.push("Signin");
     } catch (error) {
       console.log(error);
       setErrorMessage(error.toString());
@@ -281,7 +281,7 @@ export default function Signup({ navigation }) {
 
         <View style={styles.register}>
           <Text style={styles.registerText}>Já possui cadastro? </Text>
-          <Text style={styles.registerLink} onPress={() => navigation.navigate('Signin')}>Entrar</Text>
+          <Text style={styles.registerLink} onPress={() => navigation.push('Signin')}>Entrar</Text>
         </View>
       </ScrollView>
     </LinearGradient>

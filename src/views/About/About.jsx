@@ -39,12 +39,12 @@ export default function About({ navigation }) {
 
       <View style={styles.header}>
         <Text style={styles.headerAbout}>Informações do projeto</Text>
-        <Text style={styles.headerTitle}>Sobre o LOREM</Text>
+        <Text style={styles.headerTitle}>GERENCIADOR LOREM</Text>
       </View>
 
       <View style={styles.about}>
         <Text style={styles.aboutTitle}>Sobre o aplicativo</Text>
-        <Text style={styles.aboutText}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, aut alias nemo porro ea excepturi officia accusantium odio, in suscipit vitae facere distinctio ipsa. Repudiandae consequuntur vel non earum. Doloribus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, aut alias nemo porro ea excepturi officia accusantium odio, in suscipit vitae facere distinctio ipsa. Repudiandae consequuntur vel non earum. Doloribus!</Text>
+        <Text style={styles.aboutText}>O projeto visa atender as necessidades apresentadas pela construtora Planeta. Sempre mantendo o foco em sustentabilidade, o App assiste a soluções em problemas de gestão: como o gerenciamento dos dados que são emitidos por placas solares em condomínios da construtora. Através do Lorem é realizado o processamento dos dados e apresentado ao usuário de forma legível, simples e organizado.</Text>
       </View>
 
       <View style={styles.workers}>

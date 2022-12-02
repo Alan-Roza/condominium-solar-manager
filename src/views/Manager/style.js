@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: '#FFF',
+    flex: 1,
   },
   title: {
     fontWeight: "800",

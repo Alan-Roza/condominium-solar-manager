@@ -3,6 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Router from './src/routes';
 import userContext from "./src/config/userContext";
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs()
 
 export default function App() {
   const [userInfos, setUserInfos] = useState({})

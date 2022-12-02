@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
   },
   aboutText: {
     color: '#545454',
-    fontSize: 14,
+    fontSize: 15,
     textAlign: 'justify',
     fontWeight: '300',
   },

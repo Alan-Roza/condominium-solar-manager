@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { StyleSheet, Text, View, TextInput, ScrollView, Image, Pressable, FlatList, TouchableOpacity, Modal } from "react-native";
+import { StyleSheet, Text, View, TextInput, ScrollView, Image, Pressable, FlatList, TouchableOpacity, Modal, ActivityIndicator } from "react-native";
 import { useForm } from "react-hook-form";
 import api from "../../services/api";
 import {
@@ -12,6 +12,7 @@ import ManagerSettingCard from "./ManagerSettingCard";
 import { FloatingAction } from "react-native-floating-action";
 import Plus from "../../../assets/icons/Plus";
 import CloseIcon from "../../../assets/icons/CloseIcon";
+import EmptyList from "../EmptyList";
 
 const mainAction = [
     {
@@ -23,30 +24,94 @@ const mainAction = [
     },
 ];
 
-export default function ManagerSettings({ navigation }) {
+export default function ManagerSettings({ route, navigation }) {
     const [visibleSnackbar, setVisibleSnackbar] = React.useState(false);
     const [modalVisible, setModalVisible] = React.useState(false);
-    const [managerData, setManagerData] = React.useState([{ name: 'Eduardo', id: '1' }, { name: 'Francisco', id: '2' }]);
+    const [loading, setLoading] = React.useState(false);
+    const [loadingUsers, setLoadingUsers] = React.useState(false);
+    const [usersSindicos, setUsersSindicos] = React.useState([]);
+    const [condominiumSindicos, setCondominiumSindicos] = React.useState([]);
     const [errorMessage, setErrorMessage] = React.useState("Ocorreu um erro!");
-    const {
-        register,
-        setValue,
-        formState: { errors },
-        handleSubmit,
-    } = useForm({
-        criteriaMode: "all",
-    });
 
-    const onSubmit = async (data) => {
+    const getSpecificCondominium = async (id) => {
+        setLoading(true)
         try {
-            console.log('successfully Logged!', data)
-            navigation.navigate("Root");
+            const response = await api.get('/condominio/list?sindicoId=*')
+
+            const specificCond = response?.data?.data?.find((item) => item?.id?.includes(id))
+
+            const allUsers = await api.get('/user/list')
+
+            if (allUsers && specificCond) {
+                const filteredUsers = allUsers?.data?.data?.filter((user) => specificCond?.sindicos?.includes(user?.id))
+                setCondominiumSindicos(filteredUsers)
+            }
         } catch (error) {
-            console.log(error);
+            console.log(error)
             setErrorMessage(error.toString());
             setVisibleSnackbar(true);
         }
-    };
+        setLoading(false)
+    }
+
+    const addSindicoUser = async (id) => {
+        setLoading(true)
+        try {
+            await api.post('/condominio/addSindico', {
+                condominioId: route.params?.manager?.id,
+                sindicoId: id
+            })
+            setErrorMessage('Síndico adicionado com sucesso!');
+            setVisibleSnackbar(true);
+        } catch (error) {
+            console.log(error)
+            setErrorMessage(error.toString());
+            setVisibleSnackbar(true);
+        }
+        setLoading(false)
+    }
+
+    const removeSindicoUser = async (id) => {
+        setLoading(true)
+        try {
+            await api.post('/condominio/removeSindico', {
+                condominioId: route.params?.manager?.id,
+                sindicoId: id
+            })
+            setErrorMessage('Síndico removido com sucesso!');
+            setVisibleSnackbar(true);
+        } catch (error) {
+            console.log(error)
+            setErrorMessage(error.toString());
+            setVisibleSnackbar(true);
+        }
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        getSpecificCondominium(route.params?.manager?.id)
+    }, [route.params?.manager])
+
+    const getUsersBySindico = async () => {
+        setLoadingUsers(true)
+        try {
+            const response = await api.get('/user/list')
+
+            if (response?.data?.data) {
+                const filteredUsers = response?.data?.data.filter((user) => user?.principals?.includes('SINDICO'))
+                setUsersSindicos(filteredUsers)
+            }
+        } catch (error) {
+            console.log(error)
+            setErrorMessage(error.toString());
+            setVisibleSnackbar(true);
+        }
+        setLoadingUsers(false)
+    }
+
+    useEffect(() => {
+        getUsersBySindico()
+    }, [])
 
     return (
         <>
@@ -54,9 +119,7 @@ export default function ManagerSettings({ navigation }) {
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={() => {
-                    // this.closeButtonFunction()
-                }}>
+            >
                 <View
                     style={{
                         height: '70%',
@@ -81,20 +144,35 @@ export default function ManagerSettings({ navigation }) {
                     </View>
 
                     <View style={[styles.containerManager]}>
-                        <FlatList
-                            contentContainerStyle={{ flex: 1 }}
-                            data={managerData}
-                            renderItem={({ item }) => (
-                                <ManagerSettingCard isPlus={true} manager={item} onHandlePress={() => setModalVisible(!modalVisible)} />
-                            )}
-                        />
+                        {loadingUsers ? (
+                            <ActivityIndicator
+                                style={{ flex: 1 }}
+                                size="large"
+                                color='#EA5C2B'
+                            />
+                        ) : (
+
+                            <FlatList
+                                ListEmptyComponent={() => <EmptyList onRefresh={() => getUsersBySindico()} />}
+                                contentContainerStyle={{ flex: 1 }}
+                                data={usersSindicos}
+                                renderItem={({ item }) => (
+                                    <ManagerSettingCard isPlus={true} manager={item} onHandlePress={() => {
+                                        addSindicoUser(item.id)
+                                        getUsersBySindico()
+                                        setModalVisible(!modalVisible)
+                                        getSpecificCondominium(route.params?.manager?.id)
+                                    }} />
+                                )}
+                            />
+                        )}
                     </View>
                 </View>
             </Modal>
 
             <View showsVerticalScrollIndicator={false} style={{ flex: 1, backgroundColor: '#FFF' }}>
                 <Snackbar
-                    style={{ zIndex: 100 }}
+                    style={{ zIndex: 100, marginBottom: 100 }}
                     visible={visibleSnackbar}
                     duration={2000}
                     onDismiss={() => setVisibleSnackbar((prev) => !prev)}
@@ -115,13 +193,22 @@ export default function ManagerSettings({ navigation }) {
                 </View>
 
                 <View style={[styles.containerManager]}>
-                    <FlatList
-                        contentContainerStyle={{ flex: 1 }}
-                        data={managerData}
-                        renderItem={({ item }) => (
-                            <ManagerSettingCard manager={item} onHandlePress={() => console.log('press')} />
-                        )}
-                    />
+                    {loading ? (
+                        <ActivityIndicator
+                            style={{ flex: 1 }}
+                            size="large"
+                            color='#EA5C2B'
+                        />
+                    ) : (
+                        <FlatList
+                            ListEmptyComponent={() => <EmptyList onRefresh={() => getSpecificCondominium(route.params?.manager?.id)} />}
+                            contentContainerStyle={{ flex: 1 }}
+                            data={condominiumSindicos}
+                            renderItem={({ item }) => (
+                                <ManagerSettingCard manager={item} onHandlePress={() => removeSindicoUser(item.id)} />
+                            )}
+                        />
+                    )}
                 </View>
             </View>
 

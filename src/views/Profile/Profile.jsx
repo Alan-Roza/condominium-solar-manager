@@ -38,9 +38,9 @@ export default function Profile({ navigation }) {
   const deleteMyUser = async () => {
     try {
       console.log('deleted with success!')
-      await api.get(`/user/delete?id=${userInfos?.userInfos?.id}`)
+      await api.delete(`/user/delete?id=${userInfos?.userInfos?.id}`)
       userInfos.setUserInfos({})
-      navigation.navigate('Signin', {snackVisible: true, message: 'Usuário excluído com sucesso!'})
+      navigation.push('Signin', {snackVisible: true, message: 'Usuário excluído com sucesso!'})
     } catch (error) {
       console.log(error);
       setErrorMessage(error.toString());

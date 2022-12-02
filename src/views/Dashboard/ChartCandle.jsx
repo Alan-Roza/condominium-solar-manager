@@ -18,7 +18,6 @@ export default function ChartCandle({ title, data, labels }) {
         }}
         width={Dimensions.get("window").width - 20}
         height={250}
-        yAxisSuffix="k"
         yAxisInterval={1}
         chartConfig={{
           backgroundColor: "#FFF",
