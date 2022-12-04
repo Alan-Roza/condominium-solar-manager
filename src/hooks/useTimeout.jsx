@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react'
 
+// Hook for timeout inside search input
 export default function useTimeout (callback, delay) {
   const callbackRef = useRef(callback)
   const timeoutRef = useRef()

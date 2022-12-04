@@ -30,8 +30,6 @@ export default function DashboardDetails({ route, navigation }) {
         const formattedDataDC = filter.includes('month') ? response?.data?.data?.map((item) => item.avg_dc_voltage ?? 0) : response?.data?.data?.slice(0,7)?.map((item) => item.avg_dc_voltage ?? 0)
         const formattedDate = response?.data?.data?.slice(0,7)?.map((item) => item.date?.slice(5))
 
-        console.log(formattedDate, 'date')
-
         setGraphicDataAC({ data: formattedDataAC, labels: filter.includes('month') ? ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] : formattedDate })
         setGraphicDataDC({ data: formattedDataDC, labels: filter.includes('month') ? ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] : formattedDate })
       }

@@ -3,6 +3,7 @@ import {
   LineChart,
 } from "react-native-chart-kit";
 
+// Line Graphic component
 export default function ChartLine({ title, data, labels }) {
   return (
     <>

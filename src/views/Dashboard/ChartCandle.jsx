@@ -3,6 +3,7 @@ import {
   BarChart,
 } from "react-native-chart-kit";
 
+// Graphic Component
 export default function ChartCandle({ title, data, labels }) {
   return (
     <>

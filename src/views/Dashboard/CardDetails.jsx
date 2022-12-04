@@ -4,6 +4,7 @@ import {
   TouchableRipple,
 } from "react-native-paper";
 
+// Component Card used inside dashboard
 export default function CardDetails({ title, subTitle, data, onHandlePress }) {
   return (
     <View style={styles.container}>

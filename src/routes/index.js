@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { Pressable, View, Text, Image, StyleSheet, TouchableHighlight, Button } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
+import { View, TouchableHighlight } from 'react-native';
 
 
 import NotFoundScreen from '../views/NotFoundScreen';
@@ -24,7 +23,6 @@ import userContext from '../config/userContext';
 export default function Navigation() {
   return (
     <NavigationContainer
-      // linking={LinkingConfiguration}
       theme={DarkTheme}
     >
       <RootNavigator />
@@ -34,6 +32,7 @@ export default function Navigation() {
 
 const Stack = createNativeStackNavigator();
 
+//All navigation inside the app
 function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName='Signin' screenOptions={{headerStyle: {backgroundColor: '#EA5C2B'}}}>
@@ -74,6 +73,7 @@ const CustomTabBarButton = ({ children, onPress }) => (
   </TouchableHighlight>
 )
 
+// Bottom tab inside the app
 function BottomTabNavigator() {
   const {userInfos} = React.useContext(userContext);
 

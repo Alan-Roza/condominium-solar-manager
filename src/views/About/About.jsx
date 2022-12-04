@@ -2,6 +2,7 @@ import React from "react";
 import { ScrollView, Text, View } from "react-native";
 import { styles } from './style'
 
+// All students Facens
 const STUDENT_WORKERS = [
   {
     name: 'Alan Cruz Roza',
@@ -33,6 +34,7 @@ const STUDENT_WORKERS = [
   },
 ]
 
+// About screen
 export default function About({ navigation }) {
   return (
     <ScrollView style={styles.container}>

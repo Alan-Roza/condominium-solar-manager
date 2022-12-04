@@ -1,7 +1,8 @@
 import axios from 'axios'
 
+// Axios config for requests
 const api = axios.create({
-  baseURL: 'https://upx6-backend.herokuapp.com',
+  baseURL: 'https://upx6-backend-i5t5txbvxa-rj.a.run.app',
   timeout: 30000
 })
 
