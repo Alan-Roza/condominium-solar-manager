@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.alancruz.condominiummanager"
     },
     "web": {
-      "favicon":"./assets/images/icon.png"
+      "favicon": "./assets/images/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4c5d0ead-c421-4f02-a770-4a88b3087e0d"
+      }
     }
   }
 }
